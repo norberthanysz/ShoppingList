@@ -5,5 +5,13 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.shoppinglistapp.splash.SplashFragment" />
+        android:name="com.example.shoppinglistapp.splash.SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_activeListsFragment"
+            app:destination="@id/activeListsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activeListsFragment"
+        android:name="com.example.shoppinglistapp.activeLists.ActiveListsFragment"
+        android:label="ActiveListsFragment" />
 </navigation>

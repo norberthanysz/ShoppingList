@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ShoppingListApp</string>
+    <string name="no_lists_text">There\'re no lists to display, to add new shopping list, click the + in the bottom-right corner</string>
+    <string name="active_lists_title">Active Lists</string>
 </resources>

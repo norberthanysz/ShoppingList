@@ -13,4 +13,12 @@ class MainSharedViewModel : ViewModel() {
         uiState.postValue(UIState.NavigateTo("ListsView"))
     }
 
+    fun addList() {
+        //todo go to add list view
+    }
+
+    fun showArchivedLists() {
+        //todo go to archived lists view
+    }
+
 }
