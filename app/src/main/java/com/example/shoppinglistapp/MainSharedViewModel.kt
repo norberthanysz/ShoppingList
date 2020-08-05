@@ -8,6 +8,9 @@ class MainSharedViewModel : ViewModel() {
 
     var uiState: MutableLiveData<UIState> = MutableLiveData()
 
-   
+    fun getData() {
+        //todo download data from DB
+        uiState.postValue(UIState.NavigateTo("ListsView"))
+    }
 
 }
