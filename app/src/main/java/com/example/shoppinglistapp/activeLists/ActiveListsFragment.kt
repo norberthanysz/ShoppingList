@@ -13,6 +13,7 @@ import com.example.shoppinglistapp.MainSharedViewModel
 import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.databinding.ActiveListsFragmentBinding
 import com.example.shoppinglistapp.models.UIState
+import kotlinx.android.synthetic.main.active_lists_fragment.*
 
 class ActiveListsFragment : Fragment() {
 
@@ -42,11 +43,32 @@ class ActiveListsFragment : Fragment() {
 
         viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
             when (uiState) {
+                is UIState.Initialized -> {
+                    viewModel.getActiveLists()
+                    viewModel.getArchivedLists()
+                    if (viewModel.getActiveLists().isEmpty()) {
+                        noActiveListsText.visibility = View.VISIBLE
+                        activeLists.visibility = View.GONE
+                    } else {
+                        noActiveListsText.visibility = View.GONE
+                        activeLists.visibility = View.VISIBLE
+                    }
+                }
                 is UIState.NavigateTo -> {
-                    //todo add states
+                    when (uiState.key) {
+                        "AddNewList" -> {
+                            //todo open new list view
+                        }
+                        "ArchivedListsView" -> {
+                            //todo open archived lists view
+                        }
+
+                    }
                 }
             }
         })
+
+        viewModel.uiState.postValue(UIState.Initialized)
     }
 
 }

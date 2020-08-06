@@ -62,7 +62,7 @@
             app:srcCompat="@android:drawable/ic_input_add" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activeList"
+            android:id="@+id/activeLists"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
@@ -71,6 +71,7 @@
             app:layout_constraintTop_toBottomOf="@id/separator" />
 
         <TextView
+            android:id="@+id/noActiveListsText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"

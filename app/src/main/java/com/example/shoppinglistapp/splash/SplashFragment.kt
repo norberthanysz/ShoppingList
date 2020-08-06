@@ -2,6 +2,7 @@ package com.example.shoppinglistapp.splash
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +14,23 @@ import androidx.navigation.fragment.findNavController
 import com.example.shoppinglistapp.MainSharedViewModel
 import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.databinding.SplashFragmentBinding
+import com.example.shoppinglistapp.models.ShoppingListModel
 import com.example.shoppinglistapp.models.UIState
+import io.realm.Realm
+import io.realm.RealmList
+import io.realm.RealmResults
+import io.realm.Sort
+import io.realm.kotlin.createObject
+import io.realm.kotlin.where
+import java.lang.Exception
+import java.time.LocalDateTime
 
 class SplashFragment : Fragment() {
 
     private val splashScreenDelay: Long = 500
 
-
     private lateinit var binding: SplashFragmentBinding
     private lateinit var viewModel: MainSharedViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,14 +57,25 @@ class SplashFragment : Fragment() {
             when (uiState) {
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "ListsView" -> findNavController().navigate(R.id.action_splashFragment_to_activeListsFragment)
+                        "ActiveListsView" -> findNavController().navigate(R.id.action_splashFragment_to_activeListsFragment)
                     }
                 }
             }
         })
 
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             viewModel.getData()
         }, splashScreenDelay)
     }
+
+//    private fun addObjects() {
+//        viewModel.realm.executeTransaction { realm ->
+//            val shoppingList = realm.createObject<ShoppingListModel>()
+//            val number: Number? = realm.where(ShoppingListModel::class.java).max("id")
+//            shoppingList.id = number!!.toInt() + 1
+//            shoppingList.title = "My List"
+//            shoppingList.active = false
+//            shoppingList.items = RealmList("asd", "asd")
+//        }
+//    }
 }

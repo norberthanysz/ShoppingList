@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 30
@@ -49,7 +50,4 @@ dependencies {
 
     //dataBinding
     kapt 'com.android.databinding:compiler:3.1.4'
-
-
-
 }

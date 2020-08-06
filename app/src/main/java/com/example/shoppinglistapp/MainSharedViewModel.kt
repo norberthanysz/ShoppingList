@@ -1,24 +1,52 @@
 package com.example.shoppinglistapp
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shoppinglistapp.models.ShoppingListModel
 import com.example.shoppinglistapp.models.UIState
+import io.realm.Realm
+import io.realm.Sort
+import io.realm.kotlin.where
 
 class MainSharedViewModel : ViewModel() {
 
+    lateinit var realm: Realm
     var uiState: MutableLiveData<UIState> = MutableLiveData()
+    var shoppingLists: MutableLiveData<List<ShoppingListModel>>? = null
 
     fun getData() {
-        //todo download data from DB
-        uiState.postValue(UIState.NavigateTo("ListsView"))
+        val result = realm.where<ShoppingListModel>()
+            .sort("createdAt", Sort.DESCENDING)
+            .findAll()
+
+        shoppingLists?.value = result
+
+        Log.d("result", result.toString())
+
+        uiState.postValue(UIState.NavigateTo("ActiveListsView"))
+    }
+
+    fun getActiveLists(): List<ShoppingListModel> {
+        return realm.where<ShoppingListModel>()
+            .equalTo("active", true)
+            .sort("createdAt", Sort.DESCENDING)
+            .findAll()
+    }
+
+    fun getArchivedLists(): List<ShoppingListModel> {
+        return realm.where<ShoppingListModel>()
+            .equalTo("active", false)
+            .sort("createdAt", Sort.DESCENDING)
+            .findAll()
     }
 
     fun addList() {
-        //todo go to add list view
+        uiState.postValue(UIState.NavigateTo("AddNewList"))
     }
 
     fun showArchivedLists() {
-        //todo go to archived lists view
+        uiState.postValue(UIState.NavigateTo("ArchivedListsView"))
     }
 
 }

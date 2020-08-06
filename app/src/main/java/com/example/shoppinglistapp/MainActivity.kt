@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import io.realm.Realm
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,5 +24,6 @@ class MainActivity : AppCompatActivity() {
         val graph = navController.navInflater.inflate(R.navigation.main_graph)
         navController.graph = graph
 
+        viewModel.realm = Realm.getDefaultInstance()
     }
 }
