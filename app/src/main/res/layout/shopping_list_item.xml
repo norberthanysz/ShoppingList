@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/shoppingList"
     android:layout_height="wrap_content">
 
     <TextView
@@ -28,5 +29,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="06.08.2020" />
+
+    <TextView
+        android:id="@+id/itemsCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/listTitle"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/default_margin"
+        tools:text="items on the list: 10" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/arrow"
+        app:layout_constraintTop_toTopOf="@id/itemsCountText"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintBottom_toBottomOf="@id/itemsCountText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

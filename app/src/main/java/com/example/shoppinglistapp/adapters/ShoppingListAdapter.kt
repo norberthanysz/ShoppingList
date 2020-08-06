@@ -27,6 +27,8 @@ class ShoppingListAdapter(
     override fun onBindViewHolder(holder: ShoppingListViewHolder, position: Int) {
         holder.title.text = shoppingList[position].title
         holder.data.text = getDate(shoppingList[position].createdAt)
+        val items = shoppingList[position].items.size
+        holder.count.text = "items on the list: $items"
     }
 
     private fun getDate(createdAt: Date?): String {
