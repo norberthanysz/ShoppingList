@@ -9,8 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglistapp.MainSharedViewModel
 import com.example.shoppinglistapp.R
+import com.example.shoppinglistapp.adapters.ShoppingListAdapter
 import com.example.shoppinglistapp.databinding.ActiveListsFragmentBinding
 import com.example.shoppinglistapp.models.UIState
 import kotlinx.android.synthetic.main.active_lists_fragment.*
@@ -20,6 +22,8 @@ class ActiveListsFragment : Fragment() {
     private lateinit var binding: ActiveListsFragmentBinding
     private lateinit var viewModel: MainSharedViewModel
 
+    lateinit var layoutManager: LinearLayoutManager
+    lateinit var shoppingListAdapter: ShoppingListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,14 +48,13 @@ class ActiveListsFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
             when (uiState) {
                 is UIState.Initialized -> {
-                    viewModel.getActiveLists()
-                    viewModel.getArchivedLists()
                     if (viewModel.getActiveLists().isEmpty()) {
                         noActiveListsText.visibility = View.VISIBLE
-                        activeLists.visibility = View.GONE
+                        activeListRecyclerView.visibility = View.GONE
                     } else {
                         noActiveListsText.visibility = View.GONE
-                        activeLists.visibility = View.VISIBLE
+                        activeListRecyclerView.visibility = View.VISIBLE
+                        initRecyclerView()
                     }
                 }
                 is UIState.NavigateTo -> {
@@ -69,6 +72,13 @@ class ActiveListsFragment : Fragment() {
         })
 
         viewModel.uiState.postValue(UIState.Initialized)
+    }
+
+    private fun initRecyclerView() {
+        layoutManager = LinearLayoutManager(context)
+        activeListRecyclerView.layoutManager = layoutManager
+        shoppingListAdapter = ShoppingListAdapter(viewModel.getActiveLists())
+        activeListRecyclerView.adapter = shoppingListAdapter
     }
 
 }
