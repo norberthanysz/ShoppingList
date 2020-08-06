@@ -1,7 +1,6 @@
-package com.example.shoppinglistapp.activeLists
+package com.example.shoppinglistapp.archivedLists
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglistapp.MainSharedViewModel
 import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.adapters.ShoppingListAdapter
-import com.example.shoppinglistapp.databinding.ActiveListsFragmentBinding
+import com.example.shoppinglistapp.databinding.ArchivedListsFragmentBinding
 import com.example.shoppinglistapp.models.UIState
-import kotlinx.android.synthetic.main.active_lists_fragment.*
+import kotlinx.android.synthetic.main.archived_lists_fragment.*
 
-class ActiveListsFragment : Fragment() {
+class ArchivedListFragment : Fragment() {
 
-    private lateinit var binding: ActiveListsFragmentBinding
+    private lateinit var binding: ArchivedListsFragmentBinding
     private lateinit var viewModel: MainSharedViewModel
 
     lateinit var layoutManager: LinearLayoutManager
@@ -32,7 +31,7 @@ class ActiveListsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.active_lists_fragment, container, false
+            inflater, R.layout.archived_lists_fragment, container, false
         )
         return binding.root
     }
@@ -41,6 +40,7 @@ class ActiveListsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         binding.lifecycleOwner = this
         binding.view = this
+
 
         activity?.let {
             viewModel = ViewModelProvider(it).get(MainSharedViewModel::class.java)
@@ -51,20 +51,19 @@ class ActiveListsFragment : Fragment() {
             when (uiState) {
                 is UIState.Initialized -> {
                     if (viewModel.getActiveLists().isEmpty()) {
-                        noActiveListsText.visibility = View.VISIBLE
-                        activeListRecyclerView.visibility = View.GONE
+                        noArchivedListsText.visibility = View.VISIBLE
+                        archivedListRecyclerView.visibility = View.GONE
                     } else {
-                        noActiveListsText.visibility = View.GONE
-                        activeListRecyclerView.visibility = View.VISIBLE
+                        noArchivedListsText.visibility = View.GONE
+                        archivedListRecyclerView.visibility = View.VISIBLE
                         initRecyclerView()
                     }
                 }
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "AddNewList" -> {
-                            //todo open new list view
+                        "GoBack" -> {
+                            findNavController().navigateUp()
                         }
-                        "ArchivedListsView" -> findNavController().navigate(R.id.action_activeListsFragment_to_archivedListFragment)
                     }
                 }
             }
@@ -75,9 +74,10 @@ class ActiveListsFragment : Fragment() {
 
     private fun initRecyclerView() {
         layoutManager = LinearLayoutManager(context)
-        activeListRecyclerView.layoutManager = layoutManager
-        shoppingListAdapter = ShoppingListAdapter(viewModel.getActiveLists())
-        activeListRecyclerView.adapter = shoppingListAdapter
+        archivedListRecyclerView.layoutManager = layoutManager
+        shoppingListAdapter = ShoppingListAdapter(viewModel.getArchivedLists())
+        archivedListRecyclerView.adapter = shoppingListAdapter
     }
+
 
 }

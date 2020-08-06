@@ -13,5 +13,13 @@
     <fragment
         android:id="@+id/activeListsFragment"
         android:name="com.example.shoppinglistapp.activeLists.ActiveListsFragment"
-        android:label="ActiveListsFragment" />
+        android:label="ActiveListsFragment" >
+        <action
+            android:id="@+id/action_activeListsFragment_to_archivedListFragment"
+            app:destination="@id/archivedListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/archivedListFragment"
+        android:name="com.example.shoppinglistapp.archivedLists.ArchivedListFragment"
+        android:label="ArchivedListFragment" />
 </navigation>

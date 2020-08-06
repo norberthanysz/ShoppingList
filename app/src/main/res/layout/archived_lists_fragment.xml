@@ -12,7 +12,7 @@
 
         <variable
             name="view"
-            type="com.example.shoppinglistapp.activeLists.ActiveListsFragment" />
+            type="com.example.shoppinglistapp.archivedLists.ArchivedListFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,19 +28,19 @@
             android:text="@string/active_lists_title"
             android:textColor="@android:color/black"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@id/archivedLists"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/archivedLists" />
+            app:layout_constraintBottom_toBottomOf="@id/backButton"
+            app:layout_constraintStart_toEndOf="@id/backButton"
+            app:layout_constraintTop_toTopOf="@id/backButton" />
 
         <ImageView
-            android:id="@+id/archivedLists"
+            android:id="@+id/backButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="@dimen/default_margin"
-            android:onClick="@{() -> viewModel.showArchivedLists()}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{() -> viewModel.onBackPressed()}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/archived" />
+            app:srcCompat="@drawable/back" />
 
         <FrameLayout
             android:id="@+id/separator"
@@ -48,21 +48,10 @@
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/default_margin"
             android:background="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/archivedLists" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addNewList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:onClick="@{() -> viewModel.addList()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:layout_constraintTop_toBottomOf="@id/backButton" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activeListRecyclerView"
+            android:id="@+id/archivedListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
@@ -71,12 +60,12 @@
             app:layout_constraintTop_toBottomOf="@id/separator" />
 
         <TextView
-            android:id="@+id/noActiveListsText"
+            android:id="@+id/noArchivedListsText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:text="@string/no_lists_text"
+            android:text="@string/no_archived_lists_text"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/info_text_view"

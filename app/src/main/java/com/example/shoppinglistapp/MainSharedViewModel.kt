@@ -49,4 +49,7 @@ class MainSharedViewModel : ViewModel() {
         uiState.postValue(UIState.NavigateTo("ArchivedListsView"))
     }
 
+    fun onBackPressed() {
+        uiState.postValue(UIState.NavigateTo("GoBack"))
+    }
 }
