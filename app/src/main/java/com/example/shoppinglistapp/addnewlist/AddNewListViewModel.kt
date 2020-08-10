@@ -16,7 +16,7 @@ class AddNewListViewModel : BaseViewModel() {
     var listItem = MutableLiveData<String>()
 
     fun onBackPressed() {
-        uiState.postValue(UIState.NavigateTo("Cancel"))
+        uiState.postValue(UIState.NavigateTo("goBack"))
     }
 
     fun saveList() {
@@ -28,6 +28,7 @@ class AddNewListViewModel : BaseViewModel() {
             shoppingList.active = true
             shoppingList.items = list.items
         }
+        uiState.postValue(UIState.NavigateTo("goBack"))
     }
 
     fun addItem() {

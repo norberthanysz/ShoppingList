@@ -54,7 +54,7 @@ class AddNewListFragment : Fragment() {
                 is UIState.Refresh -> showItems()
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "Cancel" -> {
+                        "goBack" -> {
                             findNavController().navigateUp()
                         }
                     }
