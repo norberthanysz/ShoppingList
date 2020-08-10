@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
     app:startDestination="@id/splashFragment">
 
     <fragment
@@ -17,9 +19,25 @@
         <action
             android:id="@+id/action_activeListsFragment_to_archivedListFragment"
             app:destination="@id/archivedListFragment" />
+        <action
+            android:id="@+id/action_activeListsFragment_to_addNewListFragment"
+            app:destination="@id/addNewListFragment" />
+        <action
+            android:id="@+id/action_activeListsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/archivedListFragment"
-        android:name="com.example.shoppinglistapp.archivedLists.ArchivedListFragment"
-        android:label="ArchivedListFragment" />
+        android:name="com.example.shoppinglistapp.archivedLists.ArchivedListFragment" >
+        <action
+            android:id="@+id/action_archivedListFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewListFragment"
+        android:name="com.example.shoppinglistapp.addnewlist.AddNewListFragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.shoppinglistapp.details.DetailsFragment"
+        android:label="DetailsFragment" />
 </navigation>

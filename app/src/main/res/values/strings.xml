@@ -4,4 +4,6 @@
     <string name="no_archived_lists_text">There\'re no archived lists to display</string>
     <string name="active_lists_title">Current Shopping Lists</string>
     <string name="archived_lists_title">Archived Shopping Lists</string>
+    <string name="add_new_list_title">Add New List</string>
+    <string name="dot">· </string>
 </resources>

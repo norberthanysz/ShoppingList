@@ -47,7 +47,18 @@ class ActiveListsFragment : Fragment() {
             binding.viewModel = viewModel
         }
 
+        viewModel.previousState?.let {
+            viewModel.uiState.value = it
+        } ?: run {
+            viewModel.uiState.value = UIState.Initialized
+        }
+
         viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
+
+            if(uiState !is UIState.NavigateTo) {
+                viewModel.previousState = uiState
+            }
+
             when (uiState) {
                 is UIState.Initialized -> {
                     if (viewModel.getActiveLists().isEmpty()) {
@@ -61,9 +72,7 @@ class ActiveListsFragment : Fragment() {
                 }
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "AddNewList" -> {
-                            //todo open new list view
-                        }
+                        "AddNewList" -> findNavController().navigate(R.id.action_activeListsFragment_to_addNewListFragment)
                         "ArchivedListsView" -> findNavController().navigate(R.id.action_activeListsFragment_to_archivedListFragment)
                     }
                 }

@@ -2,18 +2,18 @@ package com.example.shoppinglistapp
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.shoppinglistapp.models.ShoppingListModel
 import com.example.shoppinglistapp.models.UIState
+import com.example.shoppinglistapp.viewmodels.BaseViewModel
 import io.realm.Realm
 import io.realm.Sort
 import io.realm.kotlin.where
 
-class MainSharedViewModel : ViewModel() {
+class MainSharedViewModel : BaseViewModel() {
 
     lateinit var realm: Realm
-    var uiState: MutableLiveData<UIState> = MutableLiveData()
     var shoppingLists: MutableLiveData<List<ShoppingListModel>>? = null
+    var previousState: UIState? = null
 
     fun getData() {
         val result = realm.where<ShoppingListModel>()
