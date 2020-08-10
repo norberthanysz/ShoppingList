@@ -68,7 +68,7 @@ class AddNewListFragment : Fragment() {
     private fun showItems() {
         layoutManager = LinearLayoutManager(context)
         itemsListRecyclerView.layoutManager = layoutManager
-        shoppingListItemsAdapter = ShoppingListItemsAdapter(viewModel.list.items)
+        shoppingListItemsAdapter = ShoppingListItemsAdapter(viewModel.list.items, viewModel)
         itemsListRecyclerView.adapter = shoppingListItemsAdapter
     }
 }

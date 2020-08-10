@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.adapters.viewholders.ShoppingListItemsViewHolder
 import com.example.shoppinglistapp.adapters.viewholders.ShoppingListViewHolder
+import com.example.shoppinglistapp.addnewlist.AddNewListViewModel
 import com.example.shoppinglistapp.models.ShoppingListModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ShoppingListItemsAdapter(
-    private val shoppingListItems: List<String>
+    private val shoppingListItems: List<String>,
+    private val viewModel: AddNewListViewModel
 ) : RecyclerView.Adapter<ShoppingListItemsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingListItemsViewHolder {
@@ -27,5 +29,8 @@ class ShoppingListItemsAdapter(
 
     override fun onBindViewHolder(holder: ShoppingListItemsViewHolder, position: Int) {
         holder.item.text = holder.item.context.getString(R.string.dot) + shoppingListItems[position]
+        holder.delete.setOnClickListener {
+            viewModel.deleteItem(position)
+        }
     }
 }

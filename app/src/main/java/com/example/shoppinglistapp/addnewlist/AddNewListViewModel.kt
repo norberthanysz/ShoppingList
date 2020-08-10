@@ -44,4 +44,9 @@ class AddNewListViewModel : BaseViewModel() {
     fun onItemChanged(charSequence: CharSequence, start: Int, before: Int, count: Int) {
         listItem.value = charSequence.toString()
     }
+
+    fun deleteItem(position: Int) {
+        list.items.removeAt(position)
+        uiState.postValue(UIState.Refresh)
+    }
 }
