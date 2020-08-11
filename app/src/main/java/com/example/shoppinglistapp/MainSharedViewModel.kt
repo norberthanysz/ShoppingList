@@ -14,6 +14,7 @@ class MainSharedViewModel : BaseViewModel() {
     lateinit var realm: Realm
     var shoppingLists: MutableLiveData<List<ShoppingListModel>>? = null
     var previousState: UIState? = null
+    var shoppingListModelDetails = ShoppingListModel()
 
     fun getData() {
         val result = realm.where<ShoppingListModel>()
@@ -47,6 +48,17 @@ class MainSharedViewModel : BaseViewModel() {
 
     fun showArchivedLists() {
         uiState.postValue(UIState.NavigateTo("ArchivedListsView"))
+    }
+
+    fun openActiveShoppingListDetails(position: Int) {
+        shoppingListModelDetails = getActiveLists()[position]
+        uiState.postValue(UIState.NavigateTo("details"))
+    }
+
+
+    fun openArchivedShoppingListDetails(position: Int) {
+        shoppingListModelDetails = getArchivedLists()[position]
+        uiState.postValue(UIState.NavigateTo("details"))
     }
 
     fun onBackPressed() {

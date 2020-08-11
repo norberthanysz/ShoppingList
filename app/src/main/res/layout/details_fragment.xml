@@ -12,8 +12,8 @@
         android:layout_width="@dimen/button_size"
         android:layout_height="@dimen/button_size"
         android:layout_margin="@dimen/default_margin"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/separator"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back" />
 
@@ -42,37 +42,53 @@
         android:id="@+id/itemsListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/separator"
-        app:layout_constraintBottom_toTopOf="@id/newItem"
         android:layout_marginTop="@dimen/default_margin"
-        android:overScrollMode="never" />
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/buttons"
+        app:layout_constraintTop_toBottomOf="@id/separator" />
 
-    <EditText
-        android:id="@+id/newItem"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:hint="add item"
-        android:imeOptions="actionDone"
-        android:singleLine="true"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/addButton"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <ImageView
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:backgroundTint="@android:color/black"
-        app:layout_constraintStart_toEndOf="@id/newItem"
-        android:layout_marginEnd="@dimen/default_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/newItem"
-        app:layout_constraintBottom_toBottomOf="@id/newItem" />
+        <EditText
+            android:id="@+id/newItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:hint="add item"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/archiveList"
+            app:layout_constraintEnd_toStartOf="@id/addButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
+        <ImageView
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:backgroundTint="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@id/archiveList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/newItem"
+            app:layout_constraintTop_toTopOf="@id/newItem"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
+        <Button
+            android:id="@+id/archiveList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Archive List"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

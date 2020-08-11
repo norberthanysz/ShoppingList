@@ -5,11 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.adapters.viewholders.ShoppingListItemsViewHolder
-import com.example.shoppinglistapp.adapters.viewholders.ShoppingListViewHolder
 import com.example.shoppinglistapp.addnewlist.AddNewListViewModel
-import com.example.shoppinglistapp.models.ShoppingListModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ShoppingListItemsAdapter(
     private val shoppingListItems: List<String>,

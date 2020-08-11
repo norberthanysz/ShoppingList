@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -55,7 +56,7 @@ class ActiveListsFragment : Fragment() {
 
         viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
 
-            if(uiState !is UIState.NavigateTo) {
+            if (uiState !is UIState.NavigateTo) {
                 viewModel.previousState = uiState
             }
 
@@ -74,6 +75,10 @@ class ActiveListsFragment : Fragment() {
                     when (uiState.key) {
                         "AddNewList" -> findNavController().navigate(R.id.action_activeListsFragment_to_addNewListFragment)
                         "ArchivedListsView" -> findNavController().navigate(R.id.action_activeListsFragment_to_archivedListFragment)
+                        "details" -> {
+                            val bundle = bundleOf("shoppingListId" to viewModel.shoppingListModelDetails.id)
+                            findNavController().navigate(R.id.action_activeListsFragment_to_detailsFragment, bundle)
+                        }
                     }
                 }
             }
@@ -85,7 +90,7 @@ class ActiveListsFragment : Fragment() {
     private fun initRecyclerView() {
         layoutManager = LinearLayoutManager(context)
         activeListRecyclerView.layoutManager = layoutManager
-        shoppingListAdapter = ShoppingListAdapter(viewModel.getActiveLists())
+        shoppingListAdapter = ShoppingListAdapter(viewModel.getActiveLists(), viewModel)
         activeListRecyclerView.adapter = shoppingListAdapter
     }
 

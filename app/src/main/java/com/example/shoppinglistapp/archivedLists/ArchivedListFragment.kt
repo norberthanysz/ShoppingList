@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -47,7 +48,18 @@ class ArchivedListFragment : Fragment() {
             binding.viewModel = viewModel
         }
 
+        viewModel.previousState?.let {
+            viewModel.uiState.value = it
+        } ?: run {
+            viewModel.uiState.value = UIState.Initialized
+        }
+
         viewModel.uiState.observe(viewLifecycleOwner, Observer { uiState ->
+
+            if (uiState !is UIState.NavigateTo) {
+                viewModel.previousState = uiState
+            }
+            
             when (uiState) {
                 is UIState.Initialized -> {
                     if (viewModel.getActiveLists().isEmpty()) {
@@ -61,9 +73,12 @@ class ArchivedListFragment : Fragment() {
                 }
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "GoBack" -> {
-                            findNavController().navigateUp()
+                        "GoBack" -> findNavController().navigateUp()
+                        "details" -> {
+                            val bundle = bundleOf("shoppingListId" to viewModel.shoppingListModelDetails.id)
+                            findNavController().navigate(R.id.action_archivedListFragment_to_detailsFragment, bundle)
                         }
+
                     }
                 }
             }
@@ -75,7 +90,7 @@ class ArchivedListFragment : Fragment() {
     private fun initRecyclerView() {
         layoutManager = LinearLayoutManager(context)
         archivedListRecyclerView.layoutManager = layoutManager
-        shoppingListAdapter = ShoppingListAdapter(viewModel.getArchivedLists())
+        shoppingListAdapter = ShoppingListAdapter(viewModel.getArchivedLists(), viewModel)
         archivedListRecyclerView.adapter = shoppingListAdapter
     }
 
