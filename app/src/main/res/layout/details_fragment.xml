@@ -44,11 +44,11 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/default_margin"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toTopOf="@id/buttons"
+        app:layout_constraintBottom_toTopOf="@id/activeListButtons"
         app:layout_constraintTop_toBottomOf="@id/separator" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttons"
+        android:id="@+id/activeListButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">

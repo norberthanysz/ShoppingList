@@ -59,7 +59,7 @@ class ArchivedListFragment : Fragment() {
             if (uiState !is UIState.NavigateTo) {
                 viewModel.previousState = uiState
             }
-            
+
             when (uiState) {
                 is UIState.Initialized -> {
                     if (viewModel.getActiveLists().isEmpty()) {
