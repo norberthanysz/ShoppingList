@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,11 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppinglistapp.R;
+import com.example.shoppinglistapp.adapters.DetailsListInterface;
 import com.example.shoppinglistapp.adapters.DetailsListItemsAdapter;
 
 import io.realm.Realm;
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends Fragment implements DetailsListInterface {
 
     private int listId;
     private DetailsViewModel viewModel;
@@ -28,6 +30,7 @@ public class DetailsFragment extends Fragment {
     private TextView title;
     private RecyclerView itemsListRecyclerView;
     private ConstraintLayout activeListButtons;
+    private EditText newItem;
 
     private ImageView backButton;
     private ImageView addButton;
@@ -45,7 +48,7 @@ public class DetailsFragment extends Fragment {
         if (getArguments() != null)
             listId = getArguments().getInt("shoppingListId");
 
-        viewModel = new DetailsViewModel(listId);
+        viewModel = new DetailsViewModel(listId, this);
         viewModel.realm = Realm.getDefaultInstance();
         viewModel.getList();
 
@@ -59,6 +62,7 @@ public class DetailsFragment extends Fragment {
         title = getView().findViewById(R.id.pageTitle);
         itemsListRecyclerView = getView().findViewById(R.id.itemsListRecyclerView);
         activeListButtons = getView().findViewById(R.id.activeListButtons);
+        newItem = getView().findViewById(R.id.newItem);
 
         backButton = getView().findViewById(R.id.backButton);
         addButton = getView().findViewById(R.id.addButton);
@@ -68,9 +72,10 @@ public class DetailsFragment extends Fragment {
     }
 
     private void initButtons() {
-        backButton.setOnClickListener(view -> Navigation.findNavController(view).navigateUp());
+        backButton.setOnClickListener(view -> goBack());
         addButton.setOnClickListener(view -> {
-            viewModel.archiveList();
+            String item = newItem.getText().toString();
+            viewModel.addItem(item);
         });
         archiveList.setOnClickListener(view -> {
             viewModel.archiveList();
@@ -89,5 +94,15 @@ public class DetailsFragment extends Fragment {
         DetailsListItemsAdapter shoppingListItemsAdapter =
                 new DetailsListItemsAdapter(viewModel.getShoppingList(), viewModel);
         itemsListRecyclerView.setAdapter(shoppingListItemsAdapter);
+    }
+
+    @Override
+    public void refresh() {
+        initRecyclerView();
+    }
+
+    @Override
+    public void goBack() {
+        Navigation.findNavController(getView()).navigateUp();
     }
 }

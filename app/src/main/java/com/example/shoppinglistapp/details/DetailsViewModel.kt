@@ -1,5 +1,6 @@
 package com.example.shoppinglistapp.details
 
+import com.example.shoppinglistapp.adapters.DetailsListInterface
 import com.example.shoppinglistapp.models.ShoppingListModel
 import com.example.shoppinglistapp.models.UIState
 import com.example.shoppinglistapp.viewmodels.BaseViewModel
@@ -7,7 +8,8 @@ import io.realm.Realm
 import io.realm.kotlin.where
 
 class DetailsViewModel(
-    private val listId: Int
+    private val listId: Int,
+    private val callback: DetailsListInterface
 ) : BaseViewModel() {
 
     lateinit var realm: Realm
@@ -29,16 +31,20 @@ class DetailsViewModel(
 
     fun deleteItem(position: Int) {
         //todo delete item
-        //todo refresh list after changed
+        callback.refresh()
     }
 
     fun addItem(item: String) {
         //todo add item
-        //todo refresh list after changed
+        callback.refresh()
     }
 
     fun archiveList() {
-        //todo Archive list
+        realm.executeTransactionAsync {
+            val list = it.where<ShoppingListModel>().equalTo("id", listId).findFirst()
+            list?.active = false
+        }
+        callback.goBack()
     }
 
 }
