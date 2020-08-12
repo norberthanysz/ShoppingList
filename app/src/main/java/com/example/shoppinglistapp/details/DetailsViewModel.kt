@@ -5,6 +5,7 @@ import com.example.shoppinglistapp.models.ShoppingListModel
 import com.example.shoppinglistapp.models.UIState
 import com.example.shoppinglistapp.viewmodels.BaseViewModel
 import io.realm.Realm
+import io.realm.RealmList
 import io.realm.kotlin.where
 
 class DetailsViewModel(
@@ -30,13 +31,17 @@ class DetailsViewModel(
     }
 
     fun deleteItem(position: Int) {
-        //todo delete item
-        callback.refresh()
+        realm.executeTransaction {
+            val list = it.where<ShoppingListModel>().equalTo("id", listId).findFirst()
+            list?.items?.removeAt(position)
+        }
+
+        callback.removeItem(position)
+
     }
 
     fun addItem(item: String) {
         //todo add item
-        callback.refresh()
     }
 
     fun archiveList() {

@@ -1,6 +1,6 @@
 package com.example.shoppinglistapp.adapters;
 
 public interface DetailsListInterface {
-    void refresh();
+    void removeItem(int index);
     void goBack();
 }

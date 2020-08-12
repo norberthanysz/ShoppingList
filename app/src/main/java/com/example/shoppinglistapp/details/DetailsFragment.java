@@ -26,6 +26,7 @@ public class DetailsFragment extends Fragment implements DetailsListInterface {
 
     private int listId;
     private DetailsViewModel viewModel;
+    private DetailsListItemsAdapter shoppingListItemsAdapter;
 
     private TextView title;
     private RecyclerView itemsListRecyclerView;
@@ -91,14 +92,13 @@ public class DetailsFragment extends Fragment implements DetailsListInterface {
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         itemsListRecyclerView.setLayoutManager(layoutManager);
-        DetailsListItemsAdapter shoppingListItemsAdapter =
-                new DetailsListItemsAdapter(viewModel.getShoppingList(), viewModel);
+        shoppingListItemsAdapter = new DetailsListItemsAdapter(viewModel.getShoppingList(), viewModel);
         itemsListRecyclerView.setAdapter(shoppingListItemsAdapter);
     }
 
     @Override
-    public void refresh() {
-        initRecyclerView();
+    public void removeItem(int index) {
+        shoppingListItemsAdapter.notifyItemRemoved(index);
     }
 
     @Override
