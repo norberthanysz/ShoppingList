@@ -1,18 +1,14 @@
-## ShoppingList
-Simple shopping list app to save all what you need in one place and keep track of your groceries.
+# ShoppingList
+Simple shopping list app to save all that you need in one place and keep track of your groceries. The app was created in Kotlin except for one class, it was written in Java. MVVM is an architectural pattern used in this app. The app is using LCE Modeling Data Loading. 
 
-# User can:
+## User can:
 - create shopping list and add/delete items
 - edit list
 - archive/unarchive list
 - check all active lists
 - check all archived lists
 
-# Project info:
-language: Kotlin (one class in Java) 
-architectural patter: MVVM, LCE
-
-implemented libraries: 
+## Implemented libraries: 
 - Databinding
 - LiveData
 - Realm 
