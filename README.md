@@ -11,6 +11,7 @@ Simple shopping list app to save all what you need in one place and keep track o
 # Project info:
 language: Kotlin (one class in Java) 
 architectural patter: MVVM, LCE
+
 implemented libraries: 
 - Databinding
 - LiveData
