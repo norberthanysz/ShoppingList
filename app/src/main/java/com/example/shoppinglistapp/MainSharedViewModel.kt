@@ -16,6 +16,12 @@ class MainSharedViewModel : BaseViewModel() {
     var previousState: UIState? = null
     var shoppingListModelDetails = ShoppingListModel()
 
+    val openActiveListsViewKey = "ActiveListsView"
+    val openAddNewListKey = "AddNewList"
+    val openArchivedListViewKey = "ArchivedListsView"
+    val openDetailsViewKey = "details"
+    val goBackKey = "goBack"
+
     fun getData() {
         val result = realm.where<ShoppingListModel>()
             .sort("createdAt", Sort.DESCENDING)
@@ -25,7 +31,7 @@ class MainSharedViewModel : BaseViewModel() {
 
         Log.d("result", result.toString())
 
-        uiState.postValue(UIState.NavigateTo("ActiveListsView"))
+        uiState.postValue(UIState.NavigateTo(openActiveListsViewKey))
     }
 
     fun getActiveLists(): List<ShoppingListModel> {
@@ -43,25 +49,25 @@ class MainSharedViewModel : BaseViewModel() {
     }
 
     fun addList() {
-        uiState.postValue(UIState.NavigateTo("AddNewList"))
+        uiState.postValue(UIState.NavigateTo(openAddNewListKey))
     }
 
     fun showArchivedLists() {
-        uiState.postValue(UIState.NavigateTo("ArchivedListsView"))
+        uiState.postValue(UIState.NavigateTo(openArchivedListViewKey))
     }
 
     fun openActiveShoppingListDetails(position: Int) {
         shoppingListModelDetails = getActiveLists()[position]
-        uiState.postValue(UIState.NavigateTo("details"))
+        uiState.postValue(UIState.NavigateTo(openDetailsViewKey))
     }
 
 
     fun openArchivedShoppingListDetails(position: Int) {
         shoppingListModelDetails = getArchivedLists()[position]
-        uiState.postValue(UIState.NavigateTo("details"))
+        uiState.postValue(UIState.NavigateTo(openDetailsViewKey))
     }
 
     fun onBackPressed() {
-        uiState.postValue(UIState.NavigateTo("GoBack"))
+        uiState.postValue(UIState.NavigateTo(goBackKey))
     }
 }

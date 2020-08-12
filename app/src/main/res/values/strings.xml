@@ -6,4 +6,9 @@
     <string name="archived_lists_title">Archived Shopping Lists</string>
     <string name="add_new_list_title">Add New List</string>
     <string name="dot">· </string>
+    <string name="title">Title:</string>
+    <string name="title_hint">add list title</string>
+    <string name="add_item_hint">add item</string>
+    <string name="archive_list_button">Archive List</string>
+    <string name="active_list_button">Active List</string>
 </resources>

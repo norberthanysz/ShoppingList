@@ -73,9 +73,9 @@ class ActiveListsFragment : Fragment() {
                 }
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "AddNewList" -> findNavController().navigate(R.id.action_activeListsFragment_to_addNewListFragment)
-                        "ArchivedListsView" -> findNavController().navigate(R.id.action_activeListsFragment_to_archivedListFragment)
-                        "details" -> {
+                        viewModel.openAddNewListKey -> findNavController().navigate(R.id.action_activeListsFragment_to_addNewListFragment)
+                        viewModel.openArchivedListViewKey -> findNavController().navigate(R.id.action_activeListsFragment_to_archivedListFragment)
+                        viewModel.openDetailsViewKey -> {
                             val bundle = bundleOf("shoppingListId" to viewModel.shoppingListModelDetails.id)
                             findNavController().navigate(R.id.action_activeListsFragment_to_detailsFragment, bundle)
                         }

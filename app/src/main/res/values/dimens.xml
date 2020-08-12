@@ -7,4 +7,5 @@
     <dimen name="info_text_view">20sp</dimen>
     <dimen name="title_text_size">24sp</dimen>
     <dimen name="button_size">50dp</dimen>
+    <dimen name="editTextSize">15sp</dimen>
 </resources>

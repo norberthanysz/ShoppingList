@@ -73,8 +73,8 @@ class ArchivedListFragment : Fragment() {
                 }
                 is UIState.NavigateTo -> {
                     when (uiState.key) {
-                        "GoBack" -> findNavController().navigateUp()
-                        "details" -> {
+                        viewModel.goBackKey -> findNavController().navigateUp()
+                        viewModel.openDetailsViewKey -> {
                             val bundle = bundleOf("shoppingListId" to viewModel.shoppingListModelDetails.id)
                             findNavController().navigate(R.id.action_archivedListFragment_to_detailsFragment, bundle)
                         }

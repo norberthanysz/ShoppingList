@@ -15,8 +15,10 @@ class AddNewListViewModel : BaseViewModel() {
     var listTitle = MutableLiveData<String>()
     var listItem = MutableLiveData<String>()
 
+    val goBackKey = "goBack"
+
     fun onBackPressed() {
-        uiState.postValue(UIState.NavigateTo("goBack"))
+        uiState.postValue(UIState.NavigateTo(goBackKey))
     }
 
     fun saveList() {
@@ -28,7 +30,7 @@ class AddNewListViewModel : BaseViewModel() {
             shoppingList.active = true
             shoppingList.items = list.items
         }
-        uiState.postValue(UIState.NavigateTo("goBack"))
+        uiState.postValue(UIState.NavigateTo(goBackKey))
     }
 
     fun addItem() {
