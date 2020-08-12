@@ -36,6 +36,7 @@ public class DetailsFragment extends Fragment implements DetailsListInterface {
     private ImageView backButton;
     private ImageView addButton;
     private Button archiveList;
+    private Button activeList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,8 +69,10 @@ public class DetailsFragment extends Fragment implements DetailsListInterface {
         backButton = getView().findViewById(R.id.backButton);
         addButton = getView().findViewById(R.id.addButton);
         archiveList = getView().findViewById(R.id.archiveList);
+        activeList = getView().findViewById(R.id.activeList);
 
         activeListButtons.setVisibility(viewModel.isListActive() ? View.VISIBLE : View.GONE);
+        activeList.setVisibility(viewModel.isListActive() ? View.GONE : View.VISIBLE);
     }
 
     private void initButtons() {
@@ -79,9 +82,15 @@ public class DetailsFragment extends Fragment implements DetailsListInterface {
             viewModel.addItem(item);
         });
         archiveList.setOnClickListener(view -> {
-            viewModel.archiveList();
-            Navigation.findNavController(view).navigateUp();
+            viewModel.changeStatus(false);
+            goBack();
         });
+        activeList.setOnClickListener(view -> {
+            viewModel.changeStatus(true);
+            goBack();
+        });
+
+
     }
 
 

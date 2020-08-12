@@ -48,10 +48,10 @@ class DetailsViewModel(
         callback.addItem(insertIndex)
     }
 
-    fun archiveList() {
+    fun changeStatus(active: Boolean) {
         realm.executeTransactionAsync {
             val list = it.where<ShoppingListModel>().equalTo("id", listId).findFirst()
-            list?.active = false
+            list?.active = active
         }
         callback.goBack()
     }
