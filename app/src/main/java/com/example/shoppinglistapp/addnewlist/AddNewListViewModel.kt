@@ -33,7 +33,6 @@ class AddNewListViewModel : BaseViewModel() {
 
     fun addItem() {
         list.items.add(listItem.value.toString())
-        list.items.sort()
         uiState.postValue(UIState.Refresh)
     }
 

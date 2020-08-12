@@ -102,6 +102,11 @@ public class DetailsFragment extends Fragment implements DetailsListInterface {
     }
 
     @Override
+    public void addItem(int index) {
+        shoppingListItemsAdapter.notifyItemRangeInserted(index, 1);
+    }
+
+    @Override
     public void goBack() {
         Navigation.findNavController(getView()).navigateUp();
     }

@@ -35,13 +35,17 @@ class DetailsViewModel(
             val list = it.where<ShoppingListModel>().equalTo("id", listId).findFirst()
             list?.items?.removeAt(position)
         }
-
         callback.removeItem(position)
-
     }
 
     fun addItem(item: String) {
-        //todo add item
+        var insertIndex: Int = 0
+        realm.executeTransaction {
+            val list = it.where<ShoppingListModel>().equalTo("id", listId).findFirst()
+            list?.items?.add(item)
+            insertIndex = list!!.items.size
+        }
+        callback.addItem(insertIndex)
     }
 
     fun archiveList() {
